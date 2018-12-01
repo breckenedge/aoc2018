@@ -1,12 +1,19 @@
-def main(input)
+def part1(input)
+  sum = 0
+  input.each do |line|
+    eval "sum = sum #{line}"
+  end
+  sum
+end
+
+def part2(input)
   sums = []
   sum = 0
-  loop do |x|
+  loop do
     input.each do |line|
       eval "sum = sum #{line}"
       if sums.include? sum
-        puts sum
-        exit
+        return sum
       else
         sums << sum
       end
@@ -23,7 +30,13 @@ if __FILE__ == $0
   input = (ARGV.empty? ? DATA : ARGF).readlines.map(&:chomp)
 
   Pry.rescue do
-    main(input)
+    print 'part 1: '
+    puts part1(input)
+  end
+
+  Pry.rescue do
+    print 'part 2: '
+    puts part2(input)
   end
 end
 
