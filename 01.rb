@@ -1,17 +1,15 @@
+require 'set'
+
 def part1(input)
-  sum = 0
-  input.each do |line|
-    eval "sum = sum #{line}"
-  end
-  sum
+  eval(input.join)
 end
 
 def part2(input)
-  sums = []
+  sums = Set.new
   sum = 0
   loop do
     input.each do |line|
-      eval "sum = sum #{line}"
+      sum += line.to_i
       if sums.include? sum
         return sum
       else
