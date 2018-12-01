@@ -7,14 +7,12 @@ end
 def part2(input)
   sums = Set.new
   sum = 0
-  loop do
-    input.each do |line|
-      sum += line.to_i
-      if sums.include? sum
-        return sum
-      else
-        sums << sum
-      end
+  input.cycle do |line|
+    sum += line.to_i
+    if sums.include? sum
+      return sum
+    else
+      sums << sum
     end
   end
 end
