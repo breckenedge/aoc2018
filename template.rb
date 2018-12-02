@@ -1,5 +1,11 @@
-def main(input)
-  # program goes here
+#!/usr/bin/env ruby
+
+def part1(input)
+  return 'XXX'
+end
+
+def part2(input)
+  return 'XXX'
 end
 
 if __FILE__ == $0
@@ -11,7 +17,8 @@ if __FILE__ == $0
   input = (ARGV.empty? ? DATA : ARGF).readlines.map(&:chomp)
 
   Pry.rescue do
-    main(input)
+    puts "part 1: #{part1(input)}"
+    puts "part 2: #{part2(input)}"
   end
 end
 
