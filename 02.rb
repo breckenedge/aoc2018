@@ -1,19 +1,35 @@
 #!/usr/bin/env ruby
 
+require 'levenshtein'
+
 def part1(input)
-  letter_counts = input.map { |line|
-    line.each_char.with_object(Hash.new { |hash, char| hash[char] = 0 }) { |char, hash|
-      hash[char] += 1
-    }
-  }
+  letter_counts = calculate_letter_counts(input).values
   twos_counts = letter_counts.count { |hash| hash.value?(2) }
   threes_counts = letter_counts.count { |hash| hash.value?(3) }
-  binding.pry
   twos_counts * threes_counts
 end
 
 def part2(input)
-  return 'XXX'
+  k1 = nil
+  k2 = nil
+  input.find { |key1|
+    k1 = key1
+    input.find { |key2|
+      k2 = key2
+      Levenshtein.distance(key1, key2) == 1
+    }
+  }
+  output = ''
+  k1.each_char.with_index { |char, i| output << char if k2.chars[i] == char }
+  output
+end
+
+def calculate_letter_counts(lines)
+  lines.each_with_object({}) do |line, hsh|
+    hsh[line] = line.each_char.with_object(Hash.new { |hash, char| hash[char] = 0 }) { |char, hash|
+      hash[char] += 1
+    }
+  end
 end
 
 if __FILE__ == $0
